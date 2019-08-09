@@ -1,4 +1,7 @@
-﻿using System;
+﻿using student_management.CsvLoaders;
+using student_management.Models;
+using student_management.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +23,25 @@ namespace student_management
     /// </summary>
     public partial class MainWindow : Window
     {
+        Auth mAuth;
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoginWindow login;
+            login = new LoginWindow();
+            login.ShowDialog();
+            if (login.DialogResult == true)
+            {
+                mAuth = login.Tag as Auth;
+            }
+            else
+            {
+                Environment.Exit(1);
+            }
         }
     }
 }
