@@ -11,5 +11,10 @@ namespace student_management.Models
         public string ID { get; set; }
         public string Fullname { get; set; }
         public string Room { get; set; }
+
+        public void Print()
+        {
+            Console.WriteLine("ID: {0}, Name: {1}, Room: {2}", ID, Fullname, Room);
+        }
     }
 }

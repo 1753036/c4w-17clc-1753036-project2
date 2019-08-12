@@ -60,9 +60,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataAccess\GradeReportRepo.cs" />
     <Compile Include="Models\Class.cs" />
     <Compile Include="Models\Setup.cs" />
-    <Compile Include="Views\ClassUI.cs" />
+    <Compile Include="Rules.cs" />
+    <Compile Include="Services\CourseService.cs" />
+    <Compile Include="Services\GradeReportService.cs" />
+    <Compile Include="Services\SectionService.cs" />
     <Page Include="Views\LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -83,14 +87,13 @@
     <Compile Include="DataAccess\AuthRepo.cs" />
     <Compile Include="DataAccess\ClassRepo.cs" />
     <Compile Include="DataAccess\CourseRepo.cs" />
-    <Compile Include="DataAccess\Database.cs" />
+    <Compile Include="DataAccess\DbConnection.cs" />
     <Compile Include="DataAccess\SectionRepo.cs" />
     <Compile Include="Models\Auth.cs" />
     <Compile Include="Models\Course.cs" />
-    <Compile Include="Models\Grade.cs" />
+    <Compile Include="Models\GradeReport.cs" />
     <Compile Include="Models\Section.cs" />
     <Compile Include="Models\Student.cs" />
-    <Compile Include="Models\Term.cs" />
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\ClassService.cs" />
     <Compile Include="Services\PasswordHash.cs" />

@@ -12,7 +12,7 @@ namespace student_management.CsvLoaders
         public CsvCourseParser(string filename)
             : base(filename)
         {
-            if (Data[0].Count() != 4)
+            if (data[0].Count() != 4)
             {
                 throw new CsvCourseWrongFormat("Csv file wrong format");
             }
@@ -20,12 +20,12 @@ namespace student_management.CsvLoaders
 
         public string GetClassName()
         {
-            return Data[0][0];
+            return data[0][0];
         }
 
         public int GetNumCourse()
         {
-            return Data.Count() - 2;
+            return data.Count() - 2;
         }
 
         public List<Course> GetCourses()
@@ -37,9 +37,9 @@ namespace student_management.CsvLoaders
             {
                 int index = i + 2;
                 var course = new Course();
-                course.ID = Data[index][1];
-                course.Fullname = Data[index][2];
-                course.Room = Data[index][3];
+                course.ID = data[index][1];
+                course.Fullname = data[index][2];
+                course.Room = data[index][3];
                 courses.Add(course);
             }
 

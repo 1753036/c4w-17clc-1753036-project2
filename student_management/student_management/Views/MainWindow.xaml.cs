@@ -1,4 +1,5 @@
 ﻿using student_management.CsvLoaders;
+using student_management.DataAccess;
 using student_management.Models;
 using student_management.Services;
 using student_management.Views;
@@ -10,7 +11,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -24,28 +24,79 @@ namespace student_management
     /// </summary>
     public partial class MainWindow : Window
     {
-        Setup mSetup = new Setup();
-        ClassUI mClassUI;
+        Setup setup = new Setup();
+
+        private void TestClass()
+        {
+            var parser = new CsvClassParser("csv/17hcb.csv");
+            var service = new ClassService();
+            string myclass = parser.GetClassName();
+            var listStudents = parser.GetStudents();
+            foreach (var student in listStudents)
+            {
+                student.Print();
+                service.AddStudent(student);
+            }
+        }
+
+        private void TestCourse()
+        {
+            var parser = new CsvCourseParser("csv/17hcb-course.csv");
+            var classService = new ClassService();
+            var courseService = new CourseService();
+            var sectService = new SectionService();
+            var gradeService = new GradeReportService();
+            string myclass = parser.GetClassName();
+            var listCourses = parser.GetCourses();
+            foreach (var course in listCourses)
+            {
+                if (courseService.AddCourse(course) == null)
+                {
+                    continue;
+                }
+
+                Section section = sectService.AddSection(myclass, course.ID, '1', "2019");
+                var listStudents = classService.GetStudentsInClass(myclass);
+                foreach (var student in listStudents)
+                {
+                    gradeService.AddGradeReport(section.ID, student.ID, 0, 0, 0, 0);
+                }
+
+            }
+        }
+
+        private void TestSchedule()
+        {
+
+        }
+
+        private void Test()
+        {
+            TestClass();
+            TestCourse();
+            //DbConnection.Instance().CleanUp();
+        }
+
         public MainWindow()
         {
+            Test();
+            LoadLoginForm();
             InitializeComponent();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void LoadLoginForm()
         {
             LoginWindow login;
             login = new LoginWindow();
             login.ShowDialog();
             if (login.DialogResult == true)
             {
-                mSetup.Auth = login.Tag as Auth;
+                setup.Auth = login.Tag as Auth;
             }
             else
             {
                 Environment.Exit(1);
             }
-
-            mClassUI = new ClassUI(mSetup, mClassListView);
         }
     }
 }

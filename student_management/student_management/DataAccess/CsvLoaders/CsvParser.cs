@@ -9,22 +9,22 @@ namespace student_management
 {
     public class CsvParser
     {
-        public List<string[]> Data;
+        protected List<string[]> data;
         public CsvParser(string filename)
         {
-            Data = new List<string[]>();
+            data = new List<string[]>();
             StreamReader reader = new StreamReader(@filename);
             while (!reader.EndOfStream)
             {
                 var line = reader.ReadLine();
-                Data.Add(line.Split(','));
+                data.Add(line.Split(','));
             }
             reader.Close();
         }
 
         public void Print()
         {
-            foreach (var d in Data)
+            foreach (var d in data)
             {
                 foreach (var s in d)
                 {

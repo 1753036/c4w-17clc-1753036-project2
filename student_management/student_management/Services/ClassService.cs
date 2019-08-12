@@ -11,35 +11,40 @@ namespace student_management.Services
     public class ClassService
     {
         ClassRepo repo = new ClassRepo();
-        public void AddClass(string id)
+
+        public Class AddClass(string classID)
         {
-            repo.AddClass(id);
+            return repo.AddClass(classID);
         }
 
-        public bool AddStudent(Student student)
+        public Student AddStudent(string studentID, string fullname, char gender, string birthday, string socialID, string classID)
         {
-            if (repo.IsClassExist(student.ClassID) == false)
+            if (repo.IsClassExist(classID) == false)
             {
-                repo.AddClass(student.ClassID);
+                repo.AddClass(classID);
             }
 
-            if (GetStudent(student.ID) == null)
-            {
-                repo.AddStudent(student);
-                return true;
-            }
-
-            return false;
+            return repo.AddStudent(studentID, fullname, gender, birthday, socialID, classID);
         }
 
-        public Student GetStudent(string id)
+        public Student AddStudent(Student student)
         {
-            return repo.GetStudentByID(id);
+            return this.AddStudent(student.ID, student.Fullname, student.Gender, student.Birthday, student.SocialID, student.ClassID);
+        }
+
+        public Student GetStudent(string studentID)
+        {
+            return repo.GetStudentByID(studentID);
         }
 
         public List<Class> GetListClasses()
         {
             return repo.GetListClasses();
+        }
+
+        public List<Student> GetStudentsInClass(string classID)
+        {
+            return repo.GetStudentsInClass(classID);
         }
     }
 }

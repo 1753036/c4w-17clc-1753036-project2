@@ -11,7 +11,7 @@ namespace student_management.CsvLoaders
         public CsvGradeReportParser(string filename)
             : base(filename)
         {
-            if (Data[0].Count() != 7)
+            if (data[0].Count() != 7)
             {
                 throw new CsvClassWrongFormat("Csv file wrong format");
             }

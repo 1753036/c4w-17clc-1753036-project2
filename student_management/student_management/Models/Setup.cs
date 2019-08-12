@@ -11,6 +11,8 @@ namespace student_management.Views
     public class Setup
     {
         public Auth Auth { get; set; }
-        public ClassService ClassSvc = new ClassService();
+        public ClassService ClassService = new ClassService();
+        public SectionService SectionService = new SectionService();
+        public CourseService CourseService = new CourseService();
     }
 }

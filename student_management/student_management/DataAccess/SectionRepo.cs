@@ -5,36 +5,61 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using student_management.Models;
+using System.Windows;
 
 namespace student_management.DataAccess
 {
     public class SectionRepo
     {
-        public void AddSection(ref Section section)
+        DbConnection dbconn = DbConnection.Instance();
+        public Section AddSection(string classID, string courseID, char term, string year)
         {
-            Database.Open();
-            var cmd = Database.Command("INSERT INTO section VALUES (?, ?, ?, ?); SELECT SCOPE_IDENTITY()");
-            cmd.Parameters.Add(new OleDbParameter("class", section.ClassID));
-            cmd.Parameters.Add(new OleDbParameter("course_id", section.CourseID));
-            cmd.Parameters.Add(new OleDbParameter("term", section.Term));
-            cmd.Parameters.Add(new OleDbParameter("year", section.AcademicYear));
-            section.ID = Convert.ToInt32(cmd.ExecuteScalar());
+            var cmd = dbconn.SqlCommand(
+                "INSERT INTO section VALUES (?, ?, ?, ?); SELECT SCOPE_IDENTITY()",
+                classID, courseID, term, year
+            );
+            int sectionID = -1;
+            try
+            {
+                sectionID = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+            catch
+            {
+                return null;
+            }
+
+            if (sectionID == -1)
+            {
+                return null;
+            }
+
+            Section section = new Section();
+            section.ID = sectionID;
+            section.ClassID = classID;
+            section.CourseID = courseID;
+            section.Term = term;
+            section.AcademicYear = year;
+
+            return section;
         }
 
-        public void RegisterSection(Section section, string student_id)
+        public void RegisterSection(int sectionID, string studentID)
         {
-            Database.Open();
-            var cmd = Database.Command("EXEC dbo.sp_register_section ?,?");
-            cmd.Parameters.Add(new OleDbParameter("id", section.ID));
-            cmd.Parameters.Add(new OleDbParameter("student_id", student_id));
-            cmd.ExecuteNonQuery();
+            var cmd = dbconn.SqlCommand("EXEC dbo.sp_register_section ?,?", sectionID, studentID);
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                
+            }
         }
 
         public List<Section> GetListSections()
         {
-            List<Section> sections = new List<Section>();
-            Database.Open();
-            var cmd = Database.Command("SELECT * FROM section");
+            List<Section> listSections = new List<Section>();
+            var cmd = dbconn.SqlCommand("SELECT * FROM section");
             var rd = cmd.ExecuteReader();
             while (rd.Read())
             {
@@ -44,9 +69,9 @@ namespace student_management.DataAccess
                 sec.CourseID = rd.GetString(2);
                 sec.Term = rd.GetString(3)[0];
                 sec.AcademicYear = rd.GetString(4);
-                sections.Add(sec);
+                listSections.Add(sec);
             }
-            return sections;
+            return listSections;
         }
     }
 }

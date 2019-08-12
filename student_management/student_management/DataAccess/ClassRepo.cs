@@ -10,92 +10,117 @@ namespace student_management.DataAccess
 {
     public class ClassRepo
     {
-        public bool IsClassExist(string id)
+        private DbConnection dbconn = DbConnection.Instance();
+        public bool IsClassExist(string classID)
         {
-            string class_id = null;
-            Database.Open();
-            OleDbCommand cmd = Database.Command("SELECT * FROM class WHERE id=?");
-            cmd.Parameters.Add(new OleDbParameter("id", id));
-            var rd = cmd.ExecuteReader();
+            OleDbCommand cmd = dbconn.SqlCommand("SELECT * FROM class WHERE id=?", classID);
+            OleDbDataReader rd = cmd.ExecuteReader();
+            string classId = null;
             while(rd.Read())
             {
-                class_id = rd.GetString(0);
+                classId = rd.GetString(0);
             }
-            return class_id != null;
+            return classId != null;
         }
 
-        public void AddClass(string id)
+        public Class AddClass(string classID)
         {
-            var conn = Database.Open();
-            OleDbCommand cmd = Database.Command("INSERT INTO class VALUES(?)");
-            cmd.Parameters.Add(new OleDbParameter("classid", id));
-            cmd.ExecuteNonQuery();
+            OleDbCommand cmd = dbconn.SqlCommand("INSERT INTO class VALUES(?)", classID);
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                return null;
+            }
+
+            Class classs = new Class();
+            classs.ID = classID;
+            classs.MemberCount = 0 ;
+            return classs;
         }
 
-        public void AddStudent(Student student)
+        public Student AddStudent(string studentID, string fullname, char gender, string birthday, string socialID, string classID)
         {
-            Database.Open();
-            OleDbCommand cmd = Database.Command("EXEC dbo.sp_add_student ?, ?, ?, ?, ?");
-            cmd.Parameters.Add(new OleDbParameter("id", student.ID));
-            cmd.Parameters.Add(new OleDbParameter("fullname", student.Fullname));
-            cmd.Parameters.Add(new OleDbParameter("gender", student.Gender));
-            cmd.Parameters.Add(new OleDbParameter("social_id", student.SocialID));
-            cmd.Parameters.Add(new OleDbParameter("class_id", student.ClassID));
-            cmd.ExecuteNonQuery();
+            OleDbCommand cmd = dbconn.SqlCommand(
+                "EXEC dbo.sp_add_student ?, ?, ?, ?, ?, ?",
+                studentID, fullname, gender, birthday, socialID, classID
+            );
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                return null;
+            }
+
+            Student student = new Student();
+            student.ID = studentID;
+            student.Fullname = fullname;
+            student.Gender = gender;
+            student.SocialID = socialID;
+            student.ClassID = classID;
+
+            return student;
         }
 
-        public Student GetStudentByID(string id)
+        public Student GetStudentByID(string studentID)
         {
-            Student newStudent = null;
-            var conn = Database.Open();
-            OleDbCommand cmd = Database.Command("SELECT * FROM student WHERE id=?");
-            cmd.Parameters.Add(new OleDbParameter("id", id));
+            OleDbCommand cmd = dbconn.SqlCommand("SELECT * FROM student WHERE id=?", studentID);
             OleDbDataReader rd = cmd.ExecuteReader();
+            Student student = null;
+
             while (rd.Read())
             {
-                newStudent = new Student();
-                newStudent.ID = rd.GetString(0);
-                newStudent.Fullname = rd.GetString(1);
-                newStudent.Gender = rd.GetString(2)[0];
-                newStudent.SocialID = rd.GetString(3);
-                newStudent.ClassID = rd.GetString(4);
+                student = new Student();
+                student.ID = rd.GetString(0);
+                student.Fullname = rd.GetString(1);
+                student.Gender = rd.GetString(2)[0];
+                student.SocialID = rd.GetString(3);
+                student.ClassID = rd.GetString(4);
             }
-            return newStudent;
+
+            return student;
         }
 
         public List<Class> GetListClasses()
         {
-            List<Class> classes = new List<Class>();
-            OleDbCommand cmd = Database.Command("SELECT * FROM class");
+            List<Class> listClasses = new List<Class>();
+            OleDbCommand cmd = dbconn.SqlCommand("SELECT * FROM class");
             OleDbDataReader rd = cmd.ExecuteReader();
+
             while (rd.Read())
             {
                 Class cl = new Class();
                 cl.ID = rd.GetString(0);
                 cl.MemberCount = GetStudentsInClass(cl.ID).Count();
-                classes.Add(cl);
+                listClasses.Add(cl);
             }
-            return classes;
+
+            return listClasses;
         }
 
-        public List<Student> GetStudentsInClass(string id)
+        public List<Student> GetStudentsInClass(string classID)
         {
-            List<Student> students = new List<Student>();
-            OleDbCommand cmd = Database.Command("SELECT * FROM student WHERE class_id=?");
-            cmd.Parameters.Add(new OleDbParameter("class_id", id));
+            List<Student> listStudents = new List<Student>();
+            OleDbCommand cmd = dbconn.SqlCommand("SELECT * FROM student WHERE class_id=?", classID);
             OleDbDataReader rd = cmd.ExecuteReader();
             while (rd.Read())
             {
-                Student st = new Student();
-                st.ID = rd.GetString(0);
-                st.Fullname = rd.GetString(1);
-                st.Gender = rd.GetString(2)[0];
-                st.Birthday = rd.GetString(3);
-                st.SocialID = rd.GetString(4);
-                st.ClassID = rd.GetString(5);
-                students.Add(st);
+                Student student = new Student();
+                student.ID = rd.GetString(0);
+                student.Fullname = rd.GetString(1);
+                student.Gender = rd.GetString(2)[0];
+                student.Birthday = rd.GetString(3);
+                student.SocialID = rd.GetString(4);
+                student.ClassID = rd.GetString(5);
+                listStudents.Add(student);
             }
-            return students;
+            return listStudents;
         }
     }
 }

@@ -10,21 +10,32 @@ namespace student_management.DataAccess
 {
     public class CourseRepo
     {
-        public void AddCourse(Course newCourse)
+        private DbConnection dbconn = DbConnection.Instance();
+        public Course AddCourse(string id, string fullname, string room)
         {
-            Database.Open();
-            var cmd = Database.Command("INSERT INTO course VALUES(?,?,?)");
-            cmd.Parameters.Add(new OleDbParameter("id", newCourse.ID));
-            cmd.Parameters.Add(new OleDbParameter("name", newCourse.Fullname));
-            cmd.Parameters.Add(new OleDbParameter("room", newCourse.Room));
-            cmd.ExecuteNonQuery();
+            var cmd = dbconn.SqlCommand(
+                "INSERT INTO course VALUES(?,?,?)",
+                id, fullname, room
+            );
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                return null;
+            }
+
+            Course course = new Course();
+            course.ID = id;
+            course.Fullname = fullname;
+            course.Room = room;
+            return course;
         }
 
-        public Course GetCourse(string id)
+        public Course GetCourse(string courseID)
         {
-            Database.Open();
-            var cmd = Database.Command("SELECT * FROM course WHERE id=?");
-            cmd.Parameters.Add(new OleDbParameter("id", id));
+            var cmd = dbconn.SqlCommand("SELECT * FROM course WHERE id=?", courseID);
             var rd = cmd.ExecuteReader();
             Course course = null;
             while (rd.Read())
@@ -39,7 +50,18 @@ namespace student_management.DataAccess
 
         public List<Course> GetListCourses()
         {
-            return new List<Course>();
+            List<Course> listCourses = new List<Course>();
+            var cmd = dbconn.SqlCommand("SELECT * FROM course");
+            var rd = cmd.ExecuteReader();
+            while (rd.Read())
+            {
+                Course course = new Course();
+                course.ID = rd.GetString(0);
+                course.Fullname = rd.GetString(1);
+                course.Room = rd.GetString(2);
+                listCourses.Add(course);
+            }
+            return listCourses;
         }
     }
 }
