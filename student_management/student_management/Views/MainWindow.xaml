@@ -11,7 +11,32 @@
     <Grid>
         <TabControl>
             <TabItem Header="Class">
-                
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="90*"></RowDefinition>
+                        <RowDefinition Height="10*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <ListView Name="mClassListView">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Class ID" Width="100" DisplayMemberBinding="{Binding ID}"/>
+                                <GridViewColumn Header="Number of students" Width="120" DisplayMemberBinding="{Binding MemberCount}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"></ColumnDefinition>
+                            <ColumnDefinition Width="50*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Margin="0 0 5 0">
+                            Import
+                        </Button>
+                        <Button Grid.Column="1" Margin="5 0 0 0">
+                            Export
+                        </Button>
+                    </Grid>
+                </Grid>
             </TabItem>
             <TabItem Header="Section">
                 

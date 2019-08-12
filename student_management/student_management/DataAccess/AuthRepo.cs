@@ -13,12 +13,12 @@ namespace student_management.DataAccess
         public bool Check(string username, string password)
         {
             Database.Open();
-            OleDbCommand cmd = Database.Command("SELECT dbo.fnAuthorize(?,?)");
+            OleDbCommand cmd = Database.Command("SELECT dbo.fn_authorize(?,?)");
             cmd.Parameters.Add(new OleDbParameter("username", username));
             cmd.Parameters.Add(new OleDbParameter("password", password));
             return Convert.ToInt32(cmd.ExecuteScalar()) == 1;
         }
-        
+
         public string GetPermission(string username, string password)
         {
             if (Check(username, password) == false)

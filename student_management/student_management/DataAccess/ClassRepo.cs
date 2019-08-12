@@ -63,14 +63,39 @@ namespace student_management.DataAccess
             return newStudent;
         }
 
-        public List<string> GetListClasses()
+        public List<Class> GetListClasses()
         {
-            return new List<string>();
+            List<Class> classes = new List<Class>();
+            OleDbCommand cmd = Database.Command("SELECT * FROM class");
+            OleDbDataReader rd = cmd.ExecuteReader();
+            while (rd.Read())
+            {
+                Class cl = new Class();
+                cl.ID = rd.GetString(0);
+                cl.MemberCount = GetStudentsInClass(cl.ID).Count();
+                classes.Add(cl);
+            }
+            return classes;
         }
 
         public List<Student> GetStudentsInClass(string id)
         {
-            return new List<Student>();
+            List<Student> students = new List<Student>();
+            OleDbCommand cmd = Database.Command("SELECT * FROM student WHERE class_id=?");
+            cmd.Parameters.Add(new OleDbParameter("class_id", id));
+            OleDbDataReader rd = cmd.ExecuteReader();
+            while (rd.Read())
+            {
+                Student st = new Student();
+                st.ID = rd.GetString(0);
+                st.Fullname = rd.GetString(1);
+                st.Gender = rd.GetString(2)[0];
+                st.Birthday = rd.GetString(3);
+                st.SocialID = rd.GetString(4);
+                st.ClassID = rd.GetString(5);
+                students.Add(st);
+            }
+            return students;
         }
     }
 }

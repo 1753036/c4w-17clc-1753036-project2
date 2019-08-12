@@ -15,7 +15,7 @@ namespace student_management.DataAccess
             if (conn == null)
             {
                 conn = new OleDbConnection();
-                conn.ConnectionString = "Provider=SQLNCLI11;Server=DESKTOP-CCTSD12;Database=university;Trusted_Connection=yes";
+                conn.ConnectionString = "Provider=SQLNCLI11;Server=DESKTOP-U9H9TRM;Database=university;Trusted_Connection=yes";
                 conn.Open();
             }
             

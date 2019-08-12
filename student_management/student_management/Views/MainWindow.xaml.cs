@@ -1,6 +1,7 @@
 ﻿using student_management.CsvLoaders;
 using student_management.Models;
 using student_management.Services;
+using student_management.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,8 @@ namespace student_management
     /// </summary>
     public partial class MainWindow : Window
     {
-        Auth mAuth;
+        Setup mSetup = new Setup();
+        ClassUI mClassUI;
         public MainWindow()
         {
             InitializeComponent();
@@ -36,12 +38,14 @@ namespace student_management
             login.ShowDialog();
             if (login.DialogResult == true)
             {
-                mAuth = login.Tag as Auth;
+                mSetup.Auth = login.Tag as Auth;
             }
             else
             {
                 Environment.Exit(1);
             }
+
+            mClassUI = new ClassUI(mSetup, mClassListView);
         }
     }
 }

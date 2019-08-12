@@ -36,5 +36,10 @@ namespace student_management.Services
         {
             return repo.GetStudentByID(id);
         }
+
+        public List<Class> GetListClasses()
+        {
+            return repo.GetListClasses();
+        }
     }
 }
