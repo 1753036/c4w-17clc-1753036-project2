@@ -59,22 +59,48 @@ namespace student_management
                 var listStudents = classService.GetStudentsInClass(myclass);
                 foreach (var student in listStudents)
                 {
-                    gradeService.AddGradeReport(section.ID, student.ID, 0, 0, 0, 0);
+                    gradeService.RegisterSection(section.ID, student.ID).Print();
                 }
-
             }
         }
 
         private void TestSchedule()
         {
+            var sectService = new SectionService();
+            var gradeService = new GradeReportService();
 
+            Section section = sectService.GetSectionByClassCourse("17HCB", "CTT011");
+            if (section != null)
+            {
+                Console.WriteLine("Cancle section");
+                gradeService.CancleSection(section.ID, "1742001");
+            }
+
+            var listStudents = sectService.GetSchedule("17HCB", "CTT011");
+
+            foreach (var student in listStudents)
+            {
+                student.Print();
+            }
+            
+        }
+
+        private void TestGrade()
+        {
+            var gradeService = new GradeReportService();
+            var sectService = new SectionService();
+            Section section = sectService.GetSectionByClassCourse("17HCB", "CTT011");
+            var report = gradeService.UpdateGradeReport(section.ID, "1742002", 10, 10, 10, 10);
+            report.Print();
         }
 
         private void Test()
         {
             TestClass();
             TestCourse();
-            //DbConnection.Instance().CleanUp();
+            TestSchedule();
+            TestGrade();
+            DbConnection.Instance().CleanUp();
         }
 
         public MainWindow()

@@ -61,6 +61,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DataAccess\GradeReportRepo.cs" />
+    <Compile Include="DataAccess\StudentReader.cs" />
     <Compile Include="Models\Class.cs" />
     <Compile Include="Models\Setup.cs" />
     <Compile Include="Rules.cs" />

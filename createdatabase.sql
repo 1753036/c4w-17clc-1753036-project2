@@ -40,6 +40,7 @@ CREATE TABLE section
 	course_id CHAR(6) NOT NULL,
 	term CHAR NOT NULL,
 	acad_year CHAR(4) NOT NULL,
+	UNIQUE(class_id, course_id),
 	FOREIGN KEY(class_id) REFERENCES class(id),
 	FOREIGN KEY(course_id) REFERENCES course(id)
 );
@@ -86,7 +87,7 @@ CREATE PROCEDURE sp_register_section(
 AS
 	IF EXISTS (SELECT * FROM section WHERE id = @section_id)
 		INSERT INTO grade_report
-		VALUES (@section_id, @student_id, 0, 0, 0, 0)
+		VALUES (@section_id, @student_id, 0.0, 0.0, 0.0, 0.0)
 	ELSE
 		THROW 50000, 'Section does not exist!', 1
 GO
@@ -115,6 +116,9 @@ GO
 
 INSERT INTO auth
 VALUES ('giaovu', CONVERT(VARCHAR(32), HASHBYTES('MD5', 'giaovu'), 2), 'staff')
+
+--ALTER TABLE section
+--ADD CONSTRAINT uq_section_ClassID_CourseID UNIQUE(class_id, course_id)
 
 --INSERT INTO class
 --VALUES ('17CLC1')

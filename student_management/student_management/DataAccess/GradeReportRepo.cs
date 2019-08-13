@@ -11,12 +11,13 @@ namespace student_management.DataAccess
     public class GradeReportRepo
     {
         DbConnection dbconn = DbConnection.Instance();
-        public GradeReport AddGradeReport(int sectionID, string studentID, float mid, float fin, float other, float total)
+        public GradeReport RegisterSection(int sectionID, string studentID)
         {
             OleDbCommand cmd = dbconn.SqlCommand(
-                "INSERT INTO grade_report VALUES(?, ?, ?, ?, ?, ?)",
-                sectionID, studentID, mid, fin, other, total
+                "EXEC sp_register_section ?, ?",
+                sectionID, studentID
             );
+
             try
             {
                 cmd.ExecuteNonQuery();
@@ -25,14 +26,25 @@ namespace student_management.DataAccess
             {
                 return null;
             }
-            GradeReport gradeReport = new GradeReport();
-            gradeReport.SectionID = sectionID;
-            gradeReport.StudentID = studentID;
-            gradeReport.Midterm = mid;
-            gradeReport.Final = fin;
-            gradeReport.Other = other;
-            gradeReport.Total = total;
-            return gradeReport;
+
+            return GetGradeReport(sectionID, studentID);
+        }
+
+        public void CancleSection(int sectionID, string studentID)
+        {
+            OleDbCommand cmd = dbconn.SqlCommand(
+                "EXEC sp_cancle_section ?, ?",
+                sectionID, studentID
+            );
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                Console.WriteLine("ERROR");
+            }
         }
 
         public GradeReport GetGradeReport(int sectionID, string studentID)
@@ -47,18 +59,18 @@ namespace student_management.DataAccess
             while (rd.Read())
             {
                 gradeReport = new GradeReport();
-                gradeReport.SectionID = sectionID;
-                gradeReport.StudentID = studentID;
-                gradeReport.Midterm = rd.GetFloat(2);
-                gradeReport.Final = rd.GetFloat(3);
-                gradeReport.Other = rd.GetFloat(4);
-                gradeReport.Total = rd.GetFloat(5);
+                gradeReport.SectionID = rd.GetInt32(0);
+                gradeReport.StudentID = rd.GetString(1);
+                gradeReport.Midterm = rd.GetDouble(2);
+                gradeReport.Final = rd.GetDouble(3);
+                gradeReport.Other = rd.GetDouble(4);
+                gradeReport.Total = rd.GetDouble(5);
             }
 
             return gradeReport;
         }
 
-        public GradeReport UpdateGradeReport(int sectionID, string studentID, float mid, float fin, float other, float total)
+        public GradeReport UpdateGradeReport(int sectionID, string studentID, double mid, double fin, double other, double total)
         {
             OleDbCommand cmd = dbconn.SqlCommand(
                 "UPDATE grade_report SET midterm=?, final=?, other=?, total=? WHERE section_id=? AND student_id=?",

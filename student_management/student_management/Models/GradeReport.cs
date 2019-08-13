@@ -10,9 +10,14 @@ namespace student_management.Models
     {
         public int SectionID { get; set; }
         public string StudentID { get; set; }
-        public float Midterm { get; set; }
-        public float Final { get; set; }
-        public float Other { get; set; }
-        public float Total { get; set; }
+        public double Midterm { get; set; }
+        public double Final { get; set; }
+        public double Other { get; set; }
+        public double Total { get; set; }
+
+        public void Print()
+        {
+            Console.WriteLine("section: {0}, student {1}, {2}, {3}, {4}, {5}", SectionID, StudentID, Midterm, Final, Other, Total);
+        }
     }
 }

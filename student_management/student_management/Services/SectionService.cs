@@ -16,14 +16,19 @@ namespace student_management.Services
             return repo.AddSection(classID, courseID, term, year);
         }
 
-        public void RegisterSection(int sectionID, string studentID)
+        public List<Student> GetSchedule(string classID, string courseID)
         {
-            repo.RegisterSection(sectionID, studentID);
+            return repo.GetShedule(classID, courseID);
         }
 
         public List<Section> GetListSections()
         {
             return repo.GetListSections();
+        }
+
+        public Section GetSectionByClassCourse(string classID, string courseID)
+        {
+            return repo.GetSectionByClassCourse(classID, courseID);
         }
     }
 }

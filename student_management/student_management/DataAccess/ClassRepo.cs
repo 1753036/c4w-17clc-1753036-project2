@@ -62,6 +62,7 @@ namespace student_management.DataAccess
             student.ID = studentID;
             student.Fullname = fullname;
             student.Gender = gender;
+            student.Birthday = birthday;
             student.SocialID = socialID;
             student.ClassID = classID;
 
@@ -76,12 +77,7 @@ namespace student_management.DataAccess
 
             while (rd.Read())
             {
-                student = new Student();
-                student.ID = rd.GetString(0);
-                student.Fullname = rd.GetString(1);
-                student.Gender = rd.GetString(2)[0];
-                student.SocialID = rd.GetString(3);
-                student.ClassID = rd.GetString(4);
+                student = StudentReader.Read(ref rd);
             }
 
             return student;
@@ -111,14 +107,7 @@ namespace student_management.DataAccess
             OleDbDataReader rd = cmd.ExecuteReader();
             while (rd.Read())
             {
-                Student student = new Student();
-                student.ID = rd.GetString(0);
-                student.Fullname = rd.GetString(1);
-                student.Gender = rd.GetString(2)[0];
-                student.Birthday = rd.GetString(3);
-                student.SocialID = rd.GetString(4);
-                student.ClassID = rd.GetString(5);
-                listStudents.Add(student);
+                listStudents.Add(StudentReader.Read(ref rd));
             }
             return listStudents;
         }

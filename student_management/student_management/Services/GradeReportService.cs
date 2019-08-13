@@ -11,9 +11,14 @@ namespace student_management.Services
     public class GradeReportService
     {
         GradeReportRepo repo = new GradeReportRepo();
-        public GradeReport AddGradeReport(int sectionID, string studentID, float mid, float fin, float other, float total)
+        public GradeReport RegisterSection(int sectionID, string studentID)
         {
-            return repo.AddGradeReport(sectionID, studentID, mid, fin, other, total);
+            return repo.RegisterSection(sectionID, studentID);
+        }
+
+        public void CancleSection(int sectionID, string studentID)
+        {
+            repo.CancleSection(sectionID, studentID);
         }
 
         public GradeReport GetGradeReport(int sectionID, string studentID)
@@ -21,7 +26,7 @@ namespace student_management.Services
             return repo.GetGradeReport(sectionID, studentID);
         }
 
-        public GradeReport UpdateGradeReport(int sectionID, string studentID, float mid, float fin, float other, float total)
+        public GradeReport UpdateGradeReport(int sectionID, string studentID, double mid, double fin, double other, double total)
         {
             return repo.UpdateGradeReport(sectionID, studentID, mid, fin, other, total);
         }

@@ -43,19 +43,6 @@ namespace student_management.DataAccess
             return section;
         }
 
-        public void RegisterSection(int sectionID, string studentID)
-        {
-            var cmd = dbconn.SqlCommand("EXEC dbo.sp_register_section ?,?", sectionID, studentID);
-            try
-            {
-                cmd.ExecuteNonQuery();
-            }
-            catch
-            {
-                
-            }
-        }
-
         public List<Section> GetListSections()
         {
             List<Section> listSections = new List<Section>();
@@ -72,6 +59,38 @@ namespace student_management.DataAccess
                 listSections.Add(sec);
             }
             return listSections;
+        }
+
+        public Section GetSectionByClassCourse(string classID, string courseID)
+        {
+            var cmd = dbconn.SqlCommand("SELECT * FROM section WHERE class_id=? AND course_id=?", classID, courseID);
+            var rd = cmd.ExecuteReader();
+            Section sec = null;
+            while (rd.Read())
+            {
+                sec = new Section();
+                sec.ID = rd.GetInt32(0);
+                sec.ClassID = rd.GetString(1);
+                sec.CourseID = rd.GetString(2);
+                sec.Term = rd.GetString(3)[0];
+                sec.AcademicYear = rd.GetString(4);
+            }
+            return sec;
+        }
+
+        public List<Student> GetShedule(string classID, string courseID)
+        {
+            List<Student> listStudents = new List<Student>();
+            var cmd = dbconn.SqlCommand(
+                "SELECT st.* FROM section s JOIN grade_report g ON s.id = g.section_id JOIN student st ON g.student_id = st.id WHERE s.class_id=? AND s.course_id=?",
+                classID, courseID);
+            var rd = cmd.ExecuteReader();
+            while (rd.Read())
+            {
+                listStudents.Add(StudentReader.Read(ref rd));
+            }
+
+            return listStudents;
         }
     }
 }
