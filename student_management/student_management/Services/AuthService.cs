@@ -14,14 +14,29 @@ namespace student_management.Services
         public Auth Authorize(string username, string password)
         {
             Auth auth = null;
-            if (repo.Check(username, password))
+            PasswordHash hash = new PasswordHash(password);
+            if (repo.Check(username, hash.Hash()))
             {
                 auth = new Auth();
                 auth.Username = username;
-                auth.Password = password;
-                auth.Permission = repo.GetPermission(username, password);
+                auth.Password = hash.Hash();
+                auth.Permission = repo.GetPermission(username, hash.Hash());
             }
             return auth;
+        }
+
+        public bool ChangePassword(string username, string password, string newPassword)
+        {
+            PasswordHash oldHash = new PasswordHash(password);
+            PasswordHash newHash = new PasswordHash(newPassword);
+            if (repo.Check(username, oldHash.Hash()))
+            {
+                
+                repo.ChangePassword(username, oldHash.Hash(), newHash.Hash());
+                return true;
+            }
+
+            return false;
         }
     }
 }

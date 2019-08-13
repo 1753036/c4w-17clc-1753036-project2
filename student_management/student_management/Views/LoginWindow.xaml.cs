@@ -33,9 +33,9 @@ namespace student_management
             statusLabel.Content = "";
 
             string username = usernameTextBox.Text;
-            PasswordHash password = new PasswordHash(passwordTextBox.Password);
+            string password = passwordTextBox.Password;
             AuthService service = new AuthService();
-            Auth auth = service.Authorize(username, password.Hash());
+            Auth auth = service.Authorize(username, password);
             if (auth != null)
             {
                 DialogResult = true;

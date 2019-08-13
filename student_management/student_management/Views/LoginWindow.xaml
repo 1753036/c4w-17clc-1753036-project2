@@ -8,7 +8,7 @@
         ResizeMode="NoResize"
         KeyUp="Window_KeyUp"
         WindowStartupLocation="CenterScreen"
-        Title="Student Management - Login" Width="350" Height="550">
+        Title="Student Management - Login" Width="400" Height="550">
     <Border BorderThickness="1">
         <Grid Background="#222222">
             <Grid.RowDefinitions>
@@ -24,8 +24,8 @@
                     <TextBox Name="usernameTextBox" FontSize="18" Background="#545d6a" Foreground="White"/>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="90"/>
                             <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Label FontSize="18" Foreground="White" VerticalAlignment="Center">Password:</Label>
                         <Label Grid.Column="1" Name="statusLabel" VerticalAlignment="Center" FontSize="15" Foreground="Red"></Label>

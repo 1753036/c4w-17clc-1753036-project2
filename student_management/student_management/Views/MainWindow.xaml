@@ -6,8 +6,15 @@
         xmlns:local="clr-namespace:student_management"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Student Management" Width="600" Height="400">
+        Title="Student Management" Width="600" Height="250">
     <Grid>
-        
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Center" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <Label HorizontalAlignment="Center" Grid.Row="0" FontSize="24">THANKS FOR USING THIS PROGRAM</Label>
+            <Label HorizontalAlignment="Center" Grid.Row="1" FontSize="24">HOPE YOU LIKE IT!</Label>
+        </Grid>
     </Grid>
 </Window>

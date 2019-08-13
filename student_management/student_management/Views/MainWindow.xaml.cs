@@ -24,8 +24,6 @@ namespace student_management
     /// </summary>
     public partial class MainWindow : Window
     {
-        Setup setup = new Setup();
-
         private void TestClass()
         {
             var parser = new CsvClassParser("csv/17hcb.csv");
@@ -100,29 +98,48 @@ namespace student_management
             TestCourse();
             TestSchedule();
             TestGrade();
-            DbConnection.Instance().CleanUp();
+            //DbConnection.Instance().CleanUp();
         }
 
         public MainWindow()
         {
-            Test();
-            LoadLoginForm();
+            //Test();
+            MainLoop();
             InitializeComponent();
         }
 
-        private void LoadLoginForm()
+        private void MainLoop()
         {
-            LoginWindow login;
-            login = new LoginWindow();
-            login.ShowDialog();
-            if (login.DialogResult == true)
+            while (true)
             {
-                setup.Auth = login.Tag as Auth;
+                Auth auth;
+                LoginWindow loginWindow = new LoginWindow();
+                loginWindow.ShowDialog();
+                Console.WriteLine(loginWindow.DialogResult);
+                if (loginWindow.DialogResult == true)
+                {
+                    auth = loginWindow.Tag as Auth;
+                    if (auth.Permission == "student")
+                    {
+                        StudentWindow studentWindow = new StudentWindow(auth);
+                        studentWindow.ShowDialog();
+                        Console.WriteLine(studentWindow.DialogResult);
+                        if (studentWindow.DialogResult == true)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            Environment.Exit(0);
+                        }
+                    }
+                }
+                else
+                {
+                    Environment.Exit(0);
+                }
             }
-            else
-            {
-                Environment.Exit(1);
-            }
+            
         }
     }
 }
