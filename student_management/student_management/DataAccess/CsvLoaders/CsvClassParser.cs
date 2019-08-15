@@ -12,6 +12,11 @@ namespace student_management.CsvLoaders
         public CsvClassParser(string filename)
             : base(filename)
         {
+            if (data.Count() == 0)
+            {
+                return;
+            }
+
             if (data[0].Count() != 6)
             {
                 throw new CsvClassWrongFormat("Csv file wrong format");

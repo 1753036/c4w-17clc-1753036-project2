@@ -50,8 +50,68 @@
                     </ListView>
                 </Grid>
             </TabItem>
-            <TabItem Header="Section" HorizontalAlignment="Right" Width="55"></TabItem>
-            <TabItem Header="Schedule"></TabItem>
+            <TabItem Header="Section" HorizontalAlignment="Right" Width="55">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Margin="0 0 0 2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="110"/>
+                        </Grid.ColumnDefinitions>
+                        <ComboBox HorizontalAlignment="Left" Name="sectionComboBox" Width="100" SelectionChanged="sectionComboBox_SelectionChanged"/>
+                        <Button Grid.Column="3" Name="sectionImportButton" Margin="10 0 0 0" Click="sectionImportButton_Click">Import</Button>
+                    </Grid>
+                    <ListView Grid.Row="1" Name="sectionListView">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding CourseName}"/>
+                                <GridViewColumn Header="Term" Width="50" DisplayMemberBinding="{Binding Term}"/>
+                                <GridViewColumn Header="Year" Width="50" DisplayMemberBinding="{Binding Year}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Grade Report">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Margin="0 0 0 2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="110"/>
+                        </Grid.ColumnDefinitions>
+                        <ComboBox HorizontalAlignment="Left" Name="gradeReportComboBox" Width="100" SelectionChanged="gradeReportComboBox_SelectionChanged"/>
+                        <Button Grid.Column="3" Name="gradeReportImportButton" Margin="10 0 0 0" Click="gradeReportImportButton_Click">Import</Button>
+                    </Grid>
+                    <ListView Grid.Row="1" Name="gradeReportListView">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Student ID" Width="70" DisplayMemberBinding="{Binding StudentID}"/>
+                                <GridViewColumn Header="Section" Width="Auto" DisplayMemberBinding="{Binding SectionName}"/>
+                                <GridViewColumn Header="Midterm" Width="50" DisplayMemberBinding="{Binding Midterm}"/>
+                                <GridViewColumn Header="Final" Width="50" DisplayMemberBinding="{Binding Final}"/>
+                                <GridViewColumn Header="Other" Width="50" DisplayMemberBinding="{Binding Other}"/>
+                                <GridViewColumn Header="Total" Width="50" DisplayMemberBinding="{Binding Total}"/>
+                            </GridView>
+                        </ListView.View>
+                        <ListView.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Delete"/>
+                            </ContextMenu>
+                        </ListView.ContextMenu>
+                    </ListView>
+                </Grid>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>

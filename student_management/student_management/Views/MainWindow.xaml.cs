@@ -94,17 +94,17 @@ namespace student_management
 
         private void Test()
         {
-            // DbConnection.Instance().CleanUp();
-            TestClass();
-            TestCourse();
-            TestSchedule();
-            TestGrade();
+            DbConnection.Instance().CleanUp();
+            //TestClass();
+            //TestCourse();
+            //TestSchedule();
+            //TestGrade();
             
         }
 
         public MainWindow()
         {
-            //Test();
+            Test();
             MainLoop();
             InitializeComponent();
         }

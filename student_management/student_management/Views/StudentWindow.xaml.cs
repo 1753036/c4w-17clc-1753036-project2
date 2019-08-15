@@ -57,13 +57,19 @@ namespace student_management.Views
             var listGradeReports = reportService.GetListGradeReports(auth.Username);
             foreach (var section in listSections)
             {
+                bool differall = true;
                 Console.WriteLine(section.ID);
                 foreach (var report in listGradeReports)
                 {
-                    if (section.ID != report.SectionID)
+                    if (section.ID == report.SectionID)
                     {
-                        registeredSectionsListView.Items.Add(section);
+                        differall = false;
                     }
+                }
+
+                if (differall)
+                {
+                    unregisteredSectionsListView.Items.Add(new SectionViewItem(section));
                 }
             }
         }

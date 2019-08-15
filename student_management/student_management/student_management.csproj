@@ -75,9 +75,12 @@
     <Compile Include="Views\ChangePasswordWindow.xaml.cs">
       <DependentUpon>ChangePasswordWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\StaffWindowClassTab.cs" />
     <Compile Include="Views\StaffWindow.xaml.cs">
       <DependentUpon>StaffWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\StaffWindowReportTab.cs" />
+    <Compile Include="Views\StaffWindowSectionTab.cs" />
     <Compile Include="Views\StudentWindow.xaml.cs">
       <DependentUpon>StudentWindow.xaml</DependentUpon>
     </Compile>

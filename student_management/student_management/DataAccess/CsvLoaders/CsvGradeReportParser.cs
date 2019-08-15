@@ -11,10 +11,27 @@ namespace student_management.CsvLoaders
         public CsvGradeReportParser(string filename)
             : base(filename)
         {
+            if (data.Count() == 0)
+            {
+                return;
+            }
+
             if (data[0].Count() != 7)
             {
                 throw new CsvClassWrongFormat("Csv file wrong format");
             }
         }
+
+        public string GetClassName()
+        {
+            return data[0][0].Split('-')[0];
+        }
+
+        public string GetCourseID()
+        {
+            return data[0][0].Split('-')[1];
+        }
+        
+
     }
 }

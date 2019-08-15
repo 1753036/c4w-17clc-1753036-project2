@@ -12,6 +12,11 @@ namespace student_management.CsvLoaders
         public CsvCourseParser(string filename)
             : base(filename)
         {
+            if (data.Count() == 0)
+            {
+                return;
+            }
+
             if (data[0].Count() != 4)
             {
                 throw new CsvCourseWrongFormat("Csv file wrong format");
@@ -21,6 +26,16 @@ namespace student_management.CsvLoaders
         public string GetClassName()
         {
             return data[0][0];
+        }
+
+        public string GetTerm()
+        {
+            return data[0][1];
+        }
+
+        public string GetYear()
+        {
+            return data[0][2];
         }
 
         public int GetNumCourse()

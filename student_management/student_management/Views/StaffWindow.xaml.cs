@@ -32,42 +32,8 @@ namespace student_management.Views
         {
             this.auth = auth;
             InitializeComponent();
-            SetupComboBox();
-        }
-
-        private void SetupComboBox()
-        {
-            var listClasses = classService.GetListClasses();
-            foreach (var c in listClasses)
-            {
-                Console.WriteLine(c.ID);
-                classComboBox.Items.Add(c.ID);
-            }
-            
-            if (listClasses.Count() > 0)
-            {
-                classComboBox.SelectedIndex = 0;
-                UpdateClassView();
-            }
-        }
-
-        private void changePasswordButton_Click(object sender, RoutedEventArgs e)
-        {
-            ChangePasswordWindow changePasswordWindow = new ChangePasswordWindow(auth.Username);
-            changePasswordWindow.ShowDialog();
-        }
-
-        private void UpdateClassView()
-        {
-            string myclass = classComboBox.SelectedValue.ToString();
-            var listStudents = classService.GetStudentsInClass(myclass);
-            classListView.Items.Clear();
-            Console.WriteLine(myclass);
-            foreach (var student in listStudents)
-            {
-                Console.WriteLine(student.ID);
-                classListView.Items.Add(student);
-            }
+            SetupClassTab();
+            SetupSectionTab();
         }
 
         private void logoutButton_Click(object sender, RoutedEventArgs e)
@@ -75,27 +41,10 @@ namespace student_management.Views
             DialogResult = true;
         }
 
-        private void classComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void changePasswordButton_Click(object sender, RoutedEventArgs e)
         {
-            UpdateClassView();
-        }
-
-        private void classImportButton_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.ShowDialog();
-            if (dialog.FileName == null)
-            {
-                return;
-            }
-
-            var parser = new CsvClassParser(dialog.FileName);
-            string myclass = parser.GetClassName();
-            var listStudents = parser.GetStudents();
-            foreach (var student in listStudents)
-            {
-                classService.AddStudent(student);
-            }
+            ChangePasswordWindow changePasswordWindow = new ChangePasswordWindow(auth.Username);
+            changePasswordWindow.ShowDialog();
         }
     }
 }

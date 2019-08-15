@@ -29,9 +29,9 @@ namespace student_management.Models
             ClassID = s.ClassID;
             Year = s.AcademicYear;
         }
-        public string ClassID;
-        public string CourseName;
-        public string Term;
-        public string Year;
+        public string ClassID { get; set; }
+        public string CourseName { get; set; }
+        public string Term { get; set; }
+        public string Year { get; set; }
     }
 }

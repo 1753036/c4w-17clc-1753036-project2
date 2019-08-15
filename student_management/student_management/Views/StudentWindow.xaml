@@ -34,8 +34,8 @@
                     </ListView.View>
                 </ListView>
             </TabItem>
-            <TabItem Name="unregisterdSectionsTab" Header="Unregistered Sections">
-                <ListView Grid.Row="1" Name="unregisterdSectionsListView">
+            <TabItem Name="unregisteredSectionsTab" Header="Unregistered Sections">
+                <ListView Grid.Row="1" Name="unregisteredSectionsListView">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Class" Width="Auto" DisplayMemberBinding="{Binding ClassID}"/>
