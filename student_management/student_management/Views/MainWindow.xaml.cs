@@ -71,7 +71,7 @@ namespace student_management
             if (section != null)
             {
                 Console.WriteLine("Cancle section");
-                gradeService.CancleSection(section.ID, "1742001");
+                //gradeService.CancleSection(section.ID, "1742001");
             }
 
             var listStudents = sectService.GetSchedule("17HCB", "CTT011");
@@ -94,11 +94,12 @@ namespace student_management
 
         private void Test()
         {
+            // DbConnection.Instance().CleanUp();
             TestClass();
             TestCourse();
             TestSchedule();
             TestGrade();
-            //DbConnection.Instance().CleanUp();
+            
         }
 
         public MainWindow()
@@ -130,7 +131,20 @@ namespace student_management
                         }
                         else
                         {
-                            Environment.Exit(0);
+                            break;
+                        }
+                    } else if (auth.Permission == "staff")
+                    {
+                        StaffWindow staffWindow = new StaffWindow(auth);
+                        staffWindow.ShowDialog();
+                        Console.WriteLine(staffWindow.DialogResult);
+                        if (staffWindow.DialogResult == true)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            break;
                         }
                     }
                 }

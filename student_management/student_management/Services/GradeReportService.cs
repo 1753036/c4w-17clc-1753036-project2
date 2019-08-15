@@ -30,5 +30,10 @@ namespace student_management.Services
         {
             return repo.UpdateGradeReport(sectionID, studentID, mid, fin, other, total);
         }
+
+        public List<GradeReport> GetListGradeReports(string studentID)
+        {
+            return repo.GetListGradeReports(studentID);
+        }
     }
 }

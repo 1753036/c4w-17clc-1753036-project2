@@ -50,13 +50,7 @@ namespace student_management.DataAccess
             var rd = cmd.ExecuteReader();
             while (rd.Read())
             {
-                Section sec = new Section();
-                sec.ID = rd.GetInt32(0);
-                sec.ClassID = rd.GetString(1);
-                sec.CourseID = rd.GetString(2);
-                sec.Term = rd.GetString(3)[0];
-                sec.AcademicYear = rd.GetString(4);
-                listSections.Add(sec);
+                listSections.Add(SectionReader.Read(ref rd));
             }
             return listSections;
         }
@@ -68,12 +62,19 @@ namespace student_management.DataAccess
             Section sec = null;
             while (rd.Read())
             {
-                sec = new Section();
-                sec.ID = rd.GetInt32(0);
-                sec.ClassID = rd.GetString(1);
-                sec.CourseID = rd.GetString(2);
-                sec.Term = rd.GetString(3)[0];
-                sec.AcademicYear = rd.GetString(4);
+                sec = SectionReader.Read(ref rd);
+            }
+            return sec;
+        }
+
+        public Section GetSection(int sectionID)
+        {
+            var cmd = dbconn.SqlCommand("SELECT * FROM section WHERE id=?", sectionID);
+            var rd = cmd.ExecuteReader();
+            Section sec = null;
+            while (rd.Read())
+            {
+                sec = SectionReader.Read(ref rd);
             }
             return sec;
         }

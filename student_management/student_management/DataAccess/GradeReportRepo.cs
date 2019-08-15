@@ -58,13 +58,7 @@ namespace student_management.DataAccess
 
             while (rd.Read())
             {
-                gradeReport = new GradeReport();
-                gradeReport.SectionID = rd.GetInt32(0);
-                gradeReport.StudentID = rd.GetString(1);
-                gradeReport.Midterm = rd.GetDouble(2);
-                gradeReport.Final = rd.GetDouble(3);
-                gradeReport.Other = rd.GetDouble(4);
-                gradeReport.Total = rd.GetDouble(5);
+                gradeReport = GradeReportReader.Read(ref rd);
             }
 
             return gradeReport;
@@ -94,6 +88,22 @@ namespace student_management.DataAccess
             gradeReport.Other = other;
             gradeReport.Total = total;
             return gradeReport;
+        }
+
+        public List<GradeReport> GetListGradeReports(string studentID)
+        {
+            List<GradeReport> listGradeReports = new List<GradeReport>();
+            OleDbCommand cmd = dbconn.SqlCommand(
+                "SELECT * FROM grade_report WHERE student_id=?",
+                studentID);
+
+            OleDbDataReader rd = cmd.ExecuteReader();
+
+            while (rd.Read())
+            {
+                listGradeReports.Add(GradeReportReader.Read(ref rd));
+            }
+            return listGradeReports;
         }
     }
 }

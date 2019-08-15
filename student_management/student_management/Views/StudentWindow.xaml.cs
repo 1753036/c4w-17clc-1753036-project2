@@ -31,7 +31,8 @@ namespace student_management.Views
             this.auth = auth;
             InitializeComponent();
             SetupLabel();
-            SetupListView();
+            SetupRegisteredListView();
+            SetupUnregisteredListView();
         }
 
         private void SetupLabel()
@@ -40,17 +41,29 @@ namespace student_management.Views
             infoLabel.Content = student.ClassID + " - " + auth.Username;
         }
 
-        private void SetupListView()
+        private void SetupRegisteredListView()
+        {
+            var listGradeReports = reportService.GetListGradeReports(auth.Username);
+            foreach (var report in listGradeReports)
+            {
+                var section = sectionService.GetSection(report.SectionID);
+                registeredSectionsListView.Items.Add(new GradeReportViewItem(report, section));
+            }
+        }
+
+        private void SetupUnregisteredListView()
         {
             var listSections = sectionService.GetListSections();
-            Console.WriteLine("Count: {0}", listSections.Count());
+            var listGradeReports = reportService.GetListGradeReports(auth.Username);
             foreach (var section in listSections)
             {
-                var report = reportService.GetGradeReport(section.ID, auth.Username);
-                if (report != null)
+                Console.WriteLine(section.ID);
+                foreach (var report in listGradeReports)
                 {
-                    report.StudentID = section.CourseID + " - " + courseService.GetCourse(section.CourseID).Fullname;
-                    sectionListView.Items.Add(report);
+                    if (section.ID != report.SectionID)
+                    {
+                        registeredSectionsListView.Items.Add(section);
+                    }
                 }
             }
         }

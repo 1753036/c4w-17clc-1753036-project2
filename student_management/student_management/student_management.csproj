@@ -60,15 +60,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataAccess\CourseReader.cs" />
+    <Compile Include="DataAccess\GradeReportReader.cs" />
     <Compile Include="DataAccess\GradeReportRepo.cs" />
+    <Compile Include="DataAccess\SectionReader.cs" />
     <Compile Include="DataAccess\StudentReader.cs" />
     <Compile Include="Models\Class.cs" />
+    <Compile Include="Models\GradeReportViewItem.cs" />
+    <Compile Include="Models\SectionViewItem.cs" />
     <Compile Include="Rules.cs" />
     <Compile Include="Services\CourseService.cs" />
     <Compile Include="Services\GradeReportService.cs" />
     <Compile Include="Services\SectionService.cs" />
     <Compile Include="Views\ChangePasswordWindow.xaml.cs">
       <DependentUpon>ChangePasswordWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StaffWindow.xaml.cs">
+      <DependentUpon>StaffWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StudentWindow.xaml.cs">
       <DependentUpon>StudentWindow.xaml</DependentUpon>
@@ -114,6 +122,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\StaffWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\StudentWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

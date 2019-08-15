@@ -40,10 +40,7 @@ namespace student_management.DataAccess
             Course course = null;
             while (rd.Read())
             {
-                course = new Course();
-                course.ID = rd.GetString(0);
-                course.Fullname = rd.GetString(1);
-                course.Room = rd.GetString(2);
+                course = CourseReader.Read(ref rd);
             }
             return course;
         }
@@ -55,11 +52,7 @@ namespace student_management.DataAccess
             var rd = cmd.ExecuteReader();
             while (rd.Read())
             {
-                Course course = new Course();
-                course.ID = rd.GetString(0);
-                course.Fullname = rd.GetString(1);
-                course.Room = rd.GetString(2);
-                listCourses.Add(course);
+                listCourses.Add(CourseReader.Read(ref rd));
             }
             return listCourses;
         }

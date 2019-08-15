@@ -30,5 +30,10 @@ namespace student_management.Services
         {
             return repo.GetSectionByClassCourse(classID, courseID);
         }
+
+        public Section GetSection(int sectionID)
+        {
+            return repo.GetSection(sectionID);
+        }
     }
 }

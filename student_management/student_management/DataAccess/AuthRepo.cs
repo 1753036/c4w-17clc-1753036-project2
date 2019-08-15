@@ -46,8 +46,8 @@ namespace student_management.DataAccess
             }
 
             OleDbCommand cmd = dbconn.SqlCommand(
-                "UPDATE auth SET passwd=? WHERE username=username",
-                newpassword
+                "UPDATE auth SET passwd=? WHERE username=?",
+                newpassword, username
             );
 
             try
