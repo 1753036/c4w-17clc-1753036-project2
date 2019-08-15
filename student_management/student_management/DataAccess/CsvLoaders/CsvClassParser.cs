@@ -25,6 +25,11 @@ namespace student_management.CsvLoaders
 
         public string GetClassName()
         {
+            if (data.Count() == 0)
+            {
+                return "";
+            }
+
             return data[0][0];
         }
 

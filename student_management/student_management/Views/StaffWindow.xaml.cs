@@ -27,24 +27,70 @@ namespace student_management.Views
         SectionService sectionService = new SectionService();
         CourseService courseService = new CourseService();
         ClassService classService = new ClassService();
+        ClassControlsHelper classControlsHelper;
         Auth auth = null;
         public StaffWindow(Auth auth)
         {
             this.auth = auth;
             InitializeComponent();
-            SetupClassTab();
-            SetupSectionTab();
+            classControlsHelper = new ClassControlsHelper(classComboBox, classListView, classMenu);
         }
 
-        private void logoutButton_Click(object sender, RoutedEventArgs e)
+        private string GetChoosenFileName()
         {
-            DialogResult = true;
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.ShowDialog();
+            return dialog.FileName;
+        }
+
+        private void importStudentButton_Click(object sender, RoutedEventArgs e)
+        {
+            string filename = GetChoosenFileName();
+            try
+            {
+                classService.ReadFromCsv(filename);
+            }
+            catch (CsvClassWrongFormat)
+            {
+                MessageBox.Show("Csv wrong format");
+            }
+        }
+
+        private void importSectionButton_Click(object sender, RoutedEventArgs e)
+        {
+            string filename = GetChoosenFileName();
+            try
+            {
+                sectionService.ReadFromCsv(filename);
+            }
+            catch (CsvCourseWrongFormat)
+            {
+                MessageBox.Show("Csv wrong format");
+            }
+        }
+
+        private void importGradeButton_Click(object sender, RoutedEventArgs e)
+        {
+            string filename = GetChoosenFileName();
+            try
+            {
+                reportService.ReadFromCsv(filename);
+            }
+            catch (CsvGradeReportWrongFormat)
+            {
+                MessageBox.Show("Csv wrong format");
+            }
         }
 
         private void changePasswordButton_Click(object sender, RoutedEventArgs e)
         {
             ChangePasswordWindow changePasswordWindow = new ChangePasswordWindow(auth.Username);
             changePasswordWindow.ShowDialog();
+        }
+
+        private void logoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
         }
     }
 }

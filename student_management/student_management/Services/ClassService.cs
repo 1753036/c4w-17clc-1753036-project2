@@ -1,16 +1,32 @@
-﻿using student_management.DataAccess;
+﻿using student_management.CsvLoaders;
+using student_management.DataAccess;
 using student_management.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace student_management.Services
 {
     public class ClassService
     {
         ClassRepo repo = new ClassRepo();
+
+        public void ReadFromCsv(string filename)
+        {
+            CsvClassParser parser = new CsvClassParser(filename);
+
+            string className = parser.GetClassName();
+            var listStudents = parser.GetStudents();
+
+            AddClass(className);
+            foreach (var student in listStudents)
+            {
+                AddStudent(student);
+            }
+        }
 
         public Class AddClass(string classID)
         {

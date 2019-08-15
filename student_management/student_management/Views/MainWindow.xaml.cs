@@ -24,87 +24,9 @@ namespace student_management
     /// </summary>
     public partial class MainWindow : Window
     {
-        private void TestClass()
-        {
-            var parser = new CsvClassParser("csv/17hcb.csv");
-            var service = new ClassService();
-            string myclass = parser.GetClassName();
-            var listStudents = parser.GetStudents();
-            foreach (var student in listStudents)
-            {
-                student.Print();
-                service.AddStudent(student);
-            }
-        }
-
-        private void TestCourse()
-        {
-            var parser = new CsvCourseParser("csv/17hcb-course.csv");
-            var classService = new ClassService();
-            var courseService = new CourseService();
-            var sectService = new SectionService();
-            var gradeService = new GradeReportService();
-            string myclass = parser.GetClassName();
-            var listCourses = parser.GetCourses();
-            foreach (var course in listCourses)
-            {
-                if (courseService.AddCourse(course) == null)
-                {
-                    continue;
-                }
-
-                Section section = sectService.AddSection(myclass, course.ID, '1', "2019");
-                var listStudents = classService.GetStudentsInClass(myclass);
-                foreach (var student in listStudents)
-                {
-                    gradeService.RegisterSection(section.ID, student.ID).Print();
-                }
-            }
-        }
-
-        private void TestSchedule()
-        {
-            var sectService = new SectionService();
-            var gradeService = new GradeReportService();
-
-            Section section = sectService.GetSectionByClassCourse("17HCB", "CTT011");
-            if (section != null)
-            {
-                Console.WriteLine("Cancle section");
-                //gradeService.CancleSection(section.ID, "1742001");
-            }
-
-            var listStudents = sectService.GetSchedule("17HCB", "CTT011");
-
-            foreach (var student in listStudents)
-            {
-                student.Print();
-            }
-            
-        }
-
-        private void TestGrade()
-        {
-            var gradeService = new GradeReportService();
-            var sectService = new SectionService();
-            Section section = sectService.GetSectionByClassCourse("17HCB", "CTT011");
-            var report = gradeService.UpdateGradeReport(section.ID, "1742002", 10, 10, 10, 10);
-            report.Print();
-        }
-
-        private void Test()
-        {
-            DbConnection.Instance().CleanUp();
-            //TestClass();
-            //TestCourse();
-            //TestSchedule();
-            //TestGrade();
-            
-        }
 
         public MainWindow()
         {
-            Test();
             MainLoop();
             InitializeComponent();
         }
@@ -150,10 +72,11 @@ namespace student_management
                 }
                 else
                 {
-                    Environment.Exit(0);
+                    break;
                 }
             }
-            
+
+            Environment.Exit(0);
         }
     }
 }

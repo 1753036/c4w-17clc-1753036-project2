@@ -68,22 +68,28 @@
     <Compile Include="Models\Class.cs" />
     <Compile Include="Models\GradeReportViewItem.cs" />
     <Compile Include="Models\SectionViewItem.cs" />
+    <Compile Include="Models\StudentViewItem.cs" />
     <Compile Include="Rules.cs" />
     <Compile Include="Services\CourseService.cs" />
     <Compile Include="Services\GradeReportService.cs" />
     <Compile Include="Services\SectionService.cs" />
+    <Compile Include="Views\AddStudentWindow.xaml.cs">
+      <DependentUpon>AddStudentWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ChangePasswordWindow.xaml.cs">
       <DependentUpon>ChangePasswordWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\StaffWindowClassTab.cs" />
+    <Compile Include="Views\ClassControlsHelper.cs" />
     <Compile Include="Views\StaffWindow.xaml.cs">
       <DependentUpon>StaffWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\StaffWindowReportTab.cs" />
-    <Compile Include="Views\StaffWindowSectionTab.cs" />
     <Compile Include="Views\StudentWindow.xaml.cs">
       <DependentUpon>StudentWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\AddStudentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ChangePasswordWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

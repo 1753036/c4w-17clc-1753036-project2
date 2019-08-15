@@ -17,12 +17,7 @@ namespace student_management.Models
 
         public void Print()
         {
-            Console.WriteLine(ID);
-            Console.WriteLine("    {0}", Fullname);
-            Console.WriteLine("    {0}", Gender);
-            Console.WriteLine("    {0}", Birthday);
-            Console.WriteLine("    {0}", SocialID);
-            Console.WriteLine("    {0}", ClassID);
+            Console.WriteLine("{0}. {1} {2} {3} {4} {5}", ID,Fullname, Gender, Birthday, SocialID, ClassID);
         }
     }
 }

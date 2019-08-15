@@ -3,115 +3,87 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         WindowStartupLocation="CenterScreen"
         Title="StaffWindow" Height="400" Width="600">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <StackPanel>
         <Border Background="#9F9F9F">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50*"/>
-                    <ColumnDefinition Width="25*"/>
-                    <ColumnDefinition Width="25*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="120"/>
                 </Grid.ColumnDefinitions>
-                <Label Name="infoLabel" Grid.Column="0" Foreground="White" VerticalAlignment="Center" FontSize="20" Content="STAFF"/>
-                <Button Name="changePasswordButton" Click="changePasswordButton_Click" Grid.Column="1" Margin="10 10 10 10">Change Password</Button>
-                <Button Name="logoutButton" Click="logoutButton_Click" Grid.Column="2" Margin="10 10 10 10">Logout</Button>
+                <Label Name="infoLabel" Grid.Column="0" Foreground="White" VerticalAlignment="Center" FontSize="20" Content="Staff"/>
+                <Button Name="changePasswordButton" Click="changePasswordButton_Click" Grid.Column="1" Margin="5">Change Password</Button>
+                <Button Name="logoutButton" Click="logoutButton_Click" Grid.Column="2" Margin="5">Logout</Button>
             </Grid>
         </Border>
-        <TabControl Name="mainTabControl" Grid.Row="1">
-            <TabItem Header="Class" Name="classTab">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="25"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid Margin="0 0 0 2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="110"/>
-                        </Grid.ColumnDefinitions>
-                        <ComboBox HorizontalAlignment="Left" Name="classComboBox" Width="100" SelectionChanged="classComboBox_SelectionChanged"/>
-                        <Button Grid.Column="3" Name="classImportButton" Margin="10 0 0 0" Click="classImportButton_Click">Import</Button>
-                    </Grid>
-                    <ListView Grid.Row="1" Name="classListView">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="ID" Width="100" DisplayMemberBinding="{Binding ID}"/>
-                                <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding Fullname}"/>
-                                <GridViewColumn Header="Gender" Width="50" DisplayMemberBinding="{Binding Gender}"/>
-                                <GridViewColumn Header="Birthday" Width="100" DisplayMemberBinding="{Binding Birthday}"/>
-                                <GridViewColumn Header="Social ID" Width="120" DisplayMemberBinding="{Binding Social ID}"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Section" HorizontalAlignment="Right" Width="55">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="25"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid Margin="0 0 0 2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="110"/>
-                        </Grid.ColumnDefinitions>
-                        <ComboBox HorizontalAlignment="Left" Name="sectionComboBox" Width="100" SelectionChanged="sectionComboBox_SelectionChanged"/>
-                        <Button Grid.Column="3" Name="sectionImportButton" Margin="10 0 0 0" Click="sectionImportButton_Click">Import</Button>
-                    </Grid>
-                    <ListView Grid.Row="1" Name="sectionListView">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding CourseName}"/>
-                                <GridViewColumn Header="Term" Width="50" DisplayMemberBinding="{Binding Term}"/>
-                                <GridViewColumn Header="Year" Width="50" DisplayMemberBinding="{Binding Year}"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Grade Report">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="25"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid Margin="0 0 0 2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="110"/>
-                        </Grid.ColumnDefinitions>
-                        <ComboBox HorizontalAlignment="Left" Name="gradeReportComboBox" Width="100" SelectionChanged="gradeReportComboBox_SelectionChanged"/>
-                        <Button Grid.Column="3" Name="gradeReportImportButton" Margin="10 0 0 0" Click="gradeReportImportButton_Click">Import</Button>
-                    </Grid>
-                    <ListView Grid.Row="1" Name="gradeReportListView">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="Student ID" Width="70" DisplayMemberBinding="{Binding StudentID}"/>
-                                <GridViewColumn Header="Section" Width="Auto" DisplayMemberBinding="{Binding SectionName}"/>
-                                <GridViewColumn Header="Midterm" Width="50" DisplayMemberBinding="{Binding Midterm}"/>
-                                <GridViewColumn Header="Final" Width="50" DisplayMemberBinding="{Binding Final}"/>
-                                <GridViewColumn Header="Other" Width="50" DisplayMemberBinding="{Binding Other}"/>
-                                <GridViewColumn Header="Total" Width="50" DisplayMemberBinding="{Binding Total}"/>
-                            </GridView>
-                        </ListView.View>
+        <TabControl>
+            <TabItem Header="   Class   ">
+                <StackPanel>
+                    <ComboBox Name="classComboBox" 
+                              HorizontalAlignment="Left"
+                              Width="120"></ComboBox>
+                    <ListView Name="classListView">
                         <ListView.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem Header="Delete"/>
+                            <ContextMenu Name="classMenu">
+                                <MenuItem Header="Refresh"/>
+                                <MenuItem Header="Add"/>
                             </ContextMenu>
                         </ListView.ContextMenu>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Student ID" 
+                                                DisplayMemberBinding="{Binding ID}"
+                                                Width="100"/>
+                                <GridViewColumn Header="Fullname" 
+                                                DisplayMemberBinding="{Binding Fullname}"
+                                                Width="Auto"/>
+                                <GridViewColumn Header="Gender" 
+                                                DisplayMemberBinding="{Binding Gender}"
+                                                Width="50"/>
+                                <GridViewColumn Header="Birthday" 
+                                                DisplayMemberBinding="{Binding Birthday}"
+                                                Width="100"/>
+                                <GridViewColumn Header="SocialID" 
+                                                DisplayMemberBinding="{Binding SocialID}"
+                                                Width="120"/>
+                            </GridView>
+                        </ListView.View>
                     </ListView>
-                </Grid>
+                </StackPanel>
+            </TabItem>
+            
+            <TabItem Header="   Grade    ">
+                
+            </TabItem>
+            
+            <TabItem Header="   Import   ">
+                <Border VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" CornerRadius="3">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                        </Grid.RowDefinitions>
+                        
+                        <Button Name="importStudentButton" 
+                                Click="importStudentButton_Click"
+                                Grid.Row="0"
+                                Margin="5">Import Student</Button>
+                        <Button Name="importSectionButton" 
+                                Click="importSectionButton_Click"
+                                Grid.Row="1"
+                                Margin="5">Import Section</Button>
+                        <Button Name="importGradeButton" 
+                                Click="importGradeButton_Click"
+                                Grid.Row="2"
+                                Margin="5">Import Grade</Button>
+                    </Grid>
+                </Border>
             </TabItem>
         </TabControl>
-    </Grid>
+    </StackPanel>
 </Window>

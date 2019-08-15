@@ -1,4 +1,5 @@
-﻿using student_management.DataAccess;
+﻿using student_management.CsvLoaders;
+using student_management.DataAccess;
 using student_management.Models;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,17 @@ namespace student_management.Services
     public class GradeReportService
     {
         GradeReportRepo repo = new GradeReportRepo();
+
+        public void ReadFromCsv(string filename)
+        {
+            CsvGradeReportParser parser = new CsvGradeReportParser(filename);
+            var listReports = parser.GetListGradeReports();
+            foreach (var report in listReports)
+            {
+                UpdateGradeReport(report);
+            }
+        }
+
         public GradeReport RegisterSection(int sectionID, string studentID)
         {
             return repo.RegisterSection(sectionID, studentID);
@@ -29,6 +41,11 @@ namespace student_management.Services
         public GradeReport UpdateGradeReport(int sectionID, string studentID, double mid, double fin, double other, double total)
         {
             return repo.UpdateGradeReport(sectionID, studentID, mid, fin, other, total);
+        }
+
+        public GradeReport UpdateGradeReport(GradeReport r)
+        {
+            return UpdateGradeReport(r.SectionID, r.StudentID, r.Midterm, r.Final, r.Other, r.Total);
         }
 
         public List<GradeReport> GetListGradeReports(string studentID)
