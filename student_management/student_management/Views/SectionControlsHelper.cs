@@ -151,6 +151,11 @@ namespace student_management.Views
 
         private void add_Click(object sender, System.Windows.RoutedEventArgs e)
         {
+            if (combobox.SelectedValue == null)
+            {
+                return;
+            }
+
             var value = combobox.SelectedValue.ToString();
             var myclass = value.Split('-')[0];
             var mycourse = value.Split('-')[1];
@@ -162,6 +167,11 @@ namespace student_management.Views
 
         private void edit_Click(object sender, System.Windows.RoutedEventArgs e)
         {
+            if (combobox.SelectedValue == null)
+            {
+                return;
+            }
+
             var value = combobox.SelectedValue.ToString();
             var myclass = value.Split('-')[0];
             var mycourse = value.Split('-')[1];
@@ -173,6 +183,11 @@ namespace student_management.Views
 
         private void cancle_Click(object sender, System.Windows.RoutedEventArgs e)
         {
+            if (combobox.SelectedValue == null)
+            {
+                return;
+            }
+
             var result = MessageBox.Show("Are you sure to cancle this section?", "Cancle section", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
             {

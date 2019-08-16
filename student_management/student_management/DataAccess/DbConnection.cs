@@ -15,7 +15,7 @@ namespace student_management.DataAccess
         private DbConnection()
         {
             connection = new OleDbConnection();
-            connection.ConnectionString = "Provider=SQLNCLI11;Server=DESKTOP-U9H9TRM;Database=university;Trusted_Connection=yes";
+            connection.ConnectionString = "Provider=SQLNCLI11;Server=localhost;Database=university;Trusted_Connection=yes";
             connection.Open();
         }
 

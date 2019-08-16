@@ -32,6 +32,10 @@ namespace student_management.Views
 
         private void add_Click(object sender, RoutedEventArgs e)
         {
+            if (comboBox.SelectedValue == null)
+            {
+                return;
+            }
             var window = new AddStudentWindow(comboBox.SelectedValue.ToString());
             window.ShowDialog();
         }
