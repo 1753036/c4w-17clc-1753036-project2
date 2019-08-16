@@ -105,5 +105,17 @@ namespace student_management.DataAccess
             }
             return listGradeReports;
         }
+
+        public List<GradeReport> GetListGradeReportBySection(int sectionID)
+        {
+            List<GradeReport> listGradeReports = new List<GradeReport>();
+            OleDbCommand cmd = dbconn.SqlCommand("SELECT * FROM grade_report WHERE section_id=?", sectionID);
+            OleDbDataReader rd = cmd.ExecuteReader();
+            while (rd.Read())
+            {
+                listGradeReports.Add(GradeReportReader.Read(ref rd));
+            }
+            return listGradeReports;
+        }
     }
 }

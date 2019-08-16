@@ -10,4 +10,5 @@ SELECT * FROM section;
 
 SELECT * FROM course;
 
-SELECT * FROM grade_report;
+SELECT * FROM grade_report gr
+JOIN student s ON s.id = gr.student_id;

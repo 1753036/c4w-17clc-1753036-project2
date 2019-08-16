@@ -13,6 +13,8 @@ namespace student_management.Views
     public class ClassControlsHelper
     {
         ClassService classService = new ClassService();
+        GradeReportService reportService = new GradeReportService();
+        SectionService sectionService = new SectionService();
         ComboBox comboBox;
         ListView listView;
         ContextMenu contextMenu;
@@ -24,6 +26,7 @@ namespace student_management.Views
             this.contextMenu = menu;
             (this.contextMenu.Items[0] as MenuItem).Click += refresh_Click;
             (this.contextMenu.Items[1] as MenuItem).Click += add_Click;
+            //(this.contextMenu.Items[2] as MenuItem).Click += del_Click;
             RefreshComboBox();
         }
 

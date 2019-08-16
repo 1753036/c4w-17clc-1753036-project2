@@ -49,7 +49,14 @@ namespace student_management.Views
             student.SocialID = SocialIDTextBox.Text;
             student.Print();
 
-            service.AddStudent(student);
+            if (service.AddStudent(student) != null)
+            {
+                MessageBox.Show("Student added");
+            }
+            else
+            {
+                MessageBox.Show("Something wrong was happened, please check your input!");
+            }
 
             var listSections = sectionService.GetListSections();
             foreach (var section in listSections)
@@ -58,9 +65,7 @@ namespace student_management.Views
                 {
                     reportService.RegisterSection(section.ID, student.ID);
                 }
-            }
-
-            MessageBox.Show("Student added");
+            }            
         }
     }
 }

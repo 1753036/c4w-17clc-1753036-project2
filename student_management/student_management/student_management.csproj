@@ -73,6 +73,9 @@
     <Compile Include="Services\CourseService.cs" />
     <Compile Include="Services\GradeReportService.cs" />
     <Compile Include="Services\SectionService.cs" />
+    <Compile Include="Views\AddStudentSectionWindow.xaml.cs">
+      <DependentUpon>AddStudentSectionWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AddStudentWindow.xaml.cs">
       <DependentUpon>AddStudentWindow.xaml</DependentUpon>
     </Compile>
@@ -80,17 +83,29 @@
       <DependentUpon>ChangePasswordWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ClassControlsHelper.cs" />
+    <Compile Include="Views\EditStudentSectionWindow.xaml.cs">
+      <DependentUpon>EditStudentSectionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SectionControlsHelper.cs" />
     <Compile Include="Views\StaffWindow.xaml.cs">
       <DependentUpon>StaffWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StudentWindow.xaml.cs">
       <DependentUpon>StudentWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\AddStudentSectionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AddStudentWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ChangePasswordWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EditStudentSectionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

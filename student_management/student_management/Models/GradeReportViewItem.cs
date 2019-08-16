@@ -12,16 +12,18 @@ namespace student_management.Models
         public GradeReportViewItem(GradeReport report, Section section)
         {
             var courseService = new CourseService();
+            var classService = new ClassService();
             StudentID = report.StudentID;
-            SectionName = section.CourseID + " - " + courseService.GetCourse(section.CourseID).Fullname;
+            Fullname = classService.GetStudent(report.StudentID).Fullname;
             Midterm = report.Midterm;
             Final = report.Final;
             Other = report.Other;
             Total = report.Total;
         }
 
-        public string StudentID { get; set; }
         public string SectionName { get; set; }
+        public string StudentID { get; set; }
+        public string Fullname { get; set; }
         public double Midterm { get; set; }
         public double Final { get; set; }
         public double Other { get; set; }

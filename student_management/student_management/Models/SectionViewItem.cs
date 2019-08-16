@@ -21,9 +21,9 @@ namespace student_management.Models
 
             switch (s.Term)
             {
-                case '0': Term = "HK1"; break;
-                case '1': Term = "HK2"; break;
-                case '2': Term = "HK3"; break;
+                case '0': Term = "Spring"; break;
+                case '1': Term = "Summer"; break;
+                case '2': Term = "Fall"; break;
             }
 
             ClassID = s.ClassID;

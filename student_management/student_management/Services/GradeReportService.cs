@@ -52,5 +52,10 @@ namespace student_management.Services
         {
             return repo.GetListGradeReports(studentID);
         }
+
+        public List<GradeReport> GetListGradeReportBySection(int sectionID)
+        {
+            return repo.GetListGradeReportBySection(sectionID);
+        }
     }
 }

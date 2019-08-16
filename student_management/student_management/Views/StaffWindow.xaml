@@ -52,8 +52,76 @@
                 </StackPanel>
             </TabItem>
             
-            <TabItem Header="   Grade    ">
-                
+            <TabItem Header="   Section    ">
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <ComboBox Name="sectionComboBox" 
+                                  HorizontalAlignment="Left"
+                                  Width="Auto"></ComboBox>
+                        <CheckBox Name="sectionPassedCheckBox"
+                                  VerticalAlignment="Center"
+                                  Content="Đậu"
+                                  IsChecked="True"
+                                  Margin="5 0 0 0"
+                                  Grid.Column="1"/>
+                        <CheckBox Name="sectionDroppedCheckBox"
+                                  VerticalAlignment="Center"
+                                  Content="Rớt"
+                                  IsChecked="True"
+                                  Margin="5 0 0 0"
+                                  Grid.Column="2"/>
+                        <Label Name="sectionStatisticLabel"
+                               Grid.Column="3"
+                               Margin="5 0 0 0"
+                               Content="Tỉ lệ:"/>
+                        <Label Name="sectionTotalStudentsLabel" 
+                               Grid.Column="4"
+                               Margin="5 0 0 0"
+                               Content="Tổng: "/>
+                    </Grid>
+                    
+                    <ListView Name="sectionListView">
+                        <ListView.ContextMenu>
+                            <ContextMenu Name="sectionMenu">
+                                <MenuItem Header="Refresh"/>
+                                <MenuItem Header="Add"/>
+                                <MenuItem Header="Edit"/>
+                                <MenuItem Header="Cancle"/>
+                                <MenuItem Header="Statistic"/>
+                                <MenuItem Header="Report"/>
+                            </ContextMenu>
+                        </ListView.ContextMenu>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Student ID"
+                                                DisplayMemberBinding="{Binding StudentID}"
+                                                Width="60"/>
+                                <GridViewColumn Header="Fullname" 
+                                                DisplayMemberBinding="{Binding Fullname}"
+                                                Width="Auto"/>
+                                <GridViewColumn Header="Midterm" 
+                                                DisplayMemberBinding="{Binding Midterm}"
+                                                Width="60"/>
+                                <GridViewColumn Header="Final" 
+                                                DisplayMemberBinding="{Binding Final}"
+                                                Width="60"/>
+                                <GridViewColumn Header="Other" 
+                                                DisplayMemberBinding="{Binding Other}"
+                                                Width="60"/>
+                                <GridViewColumn Header="Total" 
+                                                DisplayMemberBinding="{Binding Total}"
+                                                Width="60"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
             </TabItem>
             
             <TabItem Header="   Import   ">

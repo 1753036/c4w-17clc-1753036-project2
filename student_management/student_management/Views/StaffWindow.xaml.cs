@@ -28,12 +28,14 @@ namespace student_management.Views
         CourseService courseService = new CourseService();
         ClassService classService = new ClassService();
         ClassControlsHelper classControlsHelper;
+        SectionControlsHelper sectionControlsHelper;
         Auth auth = null;
         public StaffWindow(Auth auth)
         {
             this.auth = auth;
             InitializeComponent();
             classControlsHelper = new ClassControlsHelper(classComboBox, classListView, classMenu);
+            sectionControlsHelper = new SectionControlsHelper(sectionComboBox, sectionListView, sectionMenu, sectionPassedCheckBox, sectionDroppedCheckBox, sectionTotalStudentsLabel, sectionStatisticLabel);
         }
 
         private string GetChoosenFileName()
