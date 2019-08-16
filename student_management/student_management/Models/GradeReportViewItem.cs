@@ -13,6 +13,7 @@ namespace student_management.Models
         {
             var courseService = new CourseService();
             var classService = new ClassService();
+            SectionName = section.CourseID + " - " + courseService.GetCourse(section.CourseID).Fullname;
             StudentID = report.StudentID;
             Fullname = classService.GetStudent(report.StudentID).Fullname;
             Midterm = report.Midterm;
