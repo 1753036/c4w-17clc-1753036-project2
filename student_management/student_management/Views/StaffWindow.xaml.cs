@@ -29,6 +29,7 @@ namespace student_management.Views
         ClassService classService = new ClassService();
         ClassControlsHelper classControlsHelper;
         SectionControlsHelper sectionControlsHelper;
+        ScheduleControlsHelper scheduleControlsHelper;
         Auth auth = null;
         public StaffWindow(Auth auth)
         {
@@ -36,6 +37,7 @@ namespace student_management.Views
             InitializeComponent();
             classControlsHelper = new ClassControlsHelper(classComboBox, classListView, classMenu);
             sectionControlsHelper = new SectionControlsHelper(sectionComboBox, sectionListView, sectionMenu, sectionPassedCheckBox, sectionDroppedCheckBox, sectionTotalStudentsLabel, sectionStatisticLabel);
+            scheduleControlsHelper = new ScheduleControlsHelper(scheduleComboBox, scheduleListView, scheduleMenu);
         }
 
         private string GetChoosenFileName()

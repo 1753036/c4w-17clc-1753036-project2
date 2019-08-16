@@ -27,6 +27,7 @@ namespace student_management
 
         public MainWindow()
         {
+            DbConnection.Instance().CleanUp();
             MainLoop();
             InitializeComponent();
         }

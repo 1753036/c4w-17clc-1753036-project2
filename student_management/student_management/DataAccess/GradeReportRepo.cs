@@ -90,6 +90,21 @@ namespace student_management.DataAccess
             return gradeReport;
         }
 
+        public List<GradeReport> GetListAllGradeReports()
+        {
+            List<GradeReport> listGradeReports = new List<GradeReport>();
+            OleDbCommand cmd = dbconn.SqlCommand(
+                "SELECT * FROM grade_report");
+
+            OleDbDataReader rd = cmd.ExecuteReader();
+
+            while (rd.Read())
+            {
+                listGradeReports.Add(GradeReportReader.Read(ref rd));
+            }
+            return listGradeReports;
+        }
+
         public List<GradeReport> GetListGradeReports(string studentID)
         {
             List<GradeReport> listGradeReports = new List<GradeReport>();

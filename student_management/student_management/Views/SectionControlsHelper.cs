@@ -22,6 +22,7 @@ namespace student_management.Views
         ClassService classService = new ClassService();
         GradeReportService reportService = new GradeReportService();
         SectionService sectionService = new SectionService();
+        CourseService courseService = new CourseService();
         public SectionControlsHelper(ComboBox combo, ListView listview, ContextMenu menu, CheckBox dau, CheckBox rot, Label total, Label tile)
         {
             this.combobox = combo;
@@ -61,13 +62,14 @@ namespace student_management.Views
             combobox.Items.Clear();
             foreach (var section in listSections)
             {
+                var courseName = courseService.GetCourse(section.CourseID).Fullname;
                 switch (section.Term)
                 {
                     case '0': term = "Spring"; break;
                     case '1': term = "Summer"; break;
                     case '2': term = "Fall"; break;
                 }
-                combobox.Items.Add(section.ClassID + "-" + section.CourseID + "-" + term);
+                combobox.Items.Add(section.ClassID + "-" + section.CourseID + "-" + courseName + "-" + term + "/" + section.AcademicYear);
             }
             
             if (combobox.Items.Count > 0)
@@ -85,14 +87,23 @@ namespace student_management.Views
 
         public void RefreshListView()
         {
+            if (combobox.SelectedValue == null)
+            {
+                return;
+            }
+
             var value = combobox.SelectedValue.ToString();
             var myclass = value.Split('-')[0];
             var mycourse = value.Split('-')[1];
             var section = sectionService.GetSectionByClassCourse(myclass, mycourse);
+
+            if (section == null)
+            {
+                return;
+            }
+
             var listReports = reportService.GetListGradeReportBySection(section.ID);
             var passedCount = 0;
-
-            totalLabel.Content = " | Tổng: " + listReports.Count().ToString();
 
             listview.Items.Clear();
             foreach (var report in listReports)
@@ -113,25 +124,22 @@ namespace student_management.Views
             }
 
             tileLabel.Content = " | Tỉ lệ: " + passedCount.ToString() + " / " + listReports.Count().ToString();
+            calculate_Total();
         }
 
-        private void passedCheckBox_Checked(object sender, RoutedEventArgs e)
+        private void calculate_Total()
         {
+            var listReports = reportService.GetListAllGradeReports();
+            var passedCount = 0;
 
-        }
-
-        private void passedCheckBox_Unchecked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void droppedCheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void droppedCheckBox_Unchecked(object sender, RoutedEventArgs e)
-        {
+            foreach (var report in listReports)
+            {
+                if (report.Total >= 5.0)
+                {
+                    passedCount += 1;
+                }
+            }
+            totalLabel.Content = " | Tổng quát: " + passedCount.ToString() + " / " + listReports.Count().ToString();
 
         }
 

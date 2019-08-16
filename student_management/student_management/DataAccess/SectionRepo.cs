@@ -79,19 +79,16 @@ namespace student_management.DataAccess
             return sec;
         }
 
-        public List<Student> GetShedule(string classID, string courseID)
+        public List<Course> GetShedule(string classID)
         {
-            List<Student> listStudents = new List<Student>();
-            var cmd = dbconn.SqlCommand(
-                "SELECT st.* FROM section s JOIN grade_report g ON s.id = g.section_id JOIN student st ON g.student_id = st.id WHERE s.class_id=? AND s.course_id=?",
-                classID, courseID);
+            var listCourses = new List<Course>();
+            var cmd = dbconn.SqlCommand("SELECT c.* FROM section s JOIN course c ON s.course_id = c.id WHERE class_id=?", classID);
             var rd = cmd.ExecuteReader();
             while (rd.Read())
             {
-                listStudents.Add(StudentReader.Read(ref rd));
+                listCourses.Add(CourseReader.Read(ref rd));
             }
-
-            return listStudents;
+            return listCourses;
         }
     }
 }

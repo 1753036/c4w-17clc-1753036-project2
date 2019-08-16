@@ -64,6 +64,7 @@
                         </Grid.ColumnDefinitions>
                         <ComboBox Name="sectionComboBox" 
                                   HorizontalAlignment="Left"
+                                  MaxWidth="200"
                                   Width="Auto"></ComboBox>
                         <CheckBox Name="sectionPassedCheckBox"
                                   VerticalAlignment="Center"
@@ -94,8 +95,6 @@
                                 <MenuItem Header="Add"/>
                                 <MenuItem Header="Edit"/>
                                 <MenuItem Header="Cancle"/>
-                                <MenuItem Header="Statistic"/>
-                                <MenuItem Header="Report"/>
                             </ContextMenu>
                         </ListView.ContextMenu>
                         <ListView.View>
@@ -118,6 +117,34 @@
                                 <GridViewColumn Header="Total" 
                                                 DisplayMemberBinding="{Binding Total}"
                                                 Width="60"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </TabItem>
+            
+            <TabItem Header="   Schedule   ">
+                <StackPanel>
+                    <ComboBox Name="scheduleComboBox" 
+                              HorizontalAlignment="Left"
+                              Width="120"></ComboBox>
+                    <ListView Name="scheduleListView">
+                        <ListView.ContextMenu>
+                            <ContextMenu Name="scheduleMenu">
+                                <MenuItem Header="Refresh"/>
+                            </ContextMenu>
+                        </ListView.ContextMenu>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Course ID" 
+                                                DisplayMemberBinding="{Binding ID}"
+                                                Width="100"/>
+                                <GridViewColumn Header="Name" 
+                                                DisplayMemberBinding="{Binding Fullname}"
+                                                Width="Auto"/>
+                                <GridViewColumn Header="Room" 
+                                                DisplayMemberBinding="{Binding Room}"
+                                                Width="100"/>
                             </GridView>
                         </ListView.View>
                     </ListView>

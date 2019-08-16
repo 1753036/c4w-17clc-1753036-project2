@@ -86,6 +86,7 @@
     <Compile Include="Views\EditStudentSectionWindow.xaml.cs">
       <DependentUpon>EditStudentSectionWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ScheduleControlsHelper.cs" />
     <Compile Include="Views\SectionControlsHelper.cs" />
     <Compile Include="Views\StaffWindow.xaml.cs">
       <DependentUpon>StaffWindow.xaml</DependentUpon>

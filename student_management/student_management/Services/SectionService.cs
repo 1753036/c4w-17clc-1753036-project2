@@ -47,9 +47,9 @@ namespace student_management.Services
             return repo.AddSection(classID, courseID, term, year);
         }
 
-        public List<Student> GetSchedule(string classID, string courseID)
+        public List<Course> GetSchedule(string classID)
         {
-            return repo.GetShedule(classID, courseID);
+            return repo.GetShedule(classID);
         }
 
         public List<Section> GetListSections()

@@ -53,6 +53,11 @@ namespace student_management.Views
 
         public void RefreshListView()
         {
+            if (comboBox.SelectedValue == null)
+            {
+                return;
+            }
+
             var listStudents = classService.GetStudentsInClass(comboBox.SelectedValue.ToString());
             listView.Items.Clear();
             foreach (var student in listStudents)
